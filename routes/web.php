@@ -3,11 +3,9 @@
 Auth::routes();
 
 // Route Frontend-------------------------
-// Login Frontend
+// Login and Register Frontend
 Route::get('/', 'Frontend\SigninControllers@index');
 Route::post('/signin', 'Frontend\SigninControllers@login')->name('signin');
-
-// Register Frontend
 Route::get('/signup', 'Frontend\SigninControllers@signup')->name('signup');
 Route::post('/signup/create', 'Frontend\SigninControllers@create')->name('signup.create');
 
@@ -27,11 +25,9 @@ Route::group(['middleware' => ['auth']], function () {
 
 
 // Route Backend----------------------------
-// Login Backend
+// Login and Register Backend
 Route::get('/admin', 'Backend\SigninControllers@index')->name('admin');
 Route::post('/admin/login', 'Backend\SigninControllers@login')->name('admin.login');
-
-// Register Backend
 Route::get('/admin/register', 'Backend\SigninControllers@register')->name('admin.register');
 Route::post('/register/create', 'Backend\SigninControllers@create')->name('register.create');
 
