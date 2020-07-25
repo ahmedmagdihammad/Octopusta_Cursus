@@ -1,19 +1,9 @@
 <?php
 
+Auth::routes();
 
-/*
-|--------------------------------------------------------------------------
-| Web Routes
-|--------------------------------------------------------------------------
-|
-| Here is where you can register web routes for your application. These
-| routes are loaded by the RouteServiceProvider within a group which
-| contains the "web" middleware group. Now create something great!
-|
-*/
-
+// Route Frontend-------------------------
 // Login Frontend
-
 Route::get('/', 'Frontend\SigninControllers@index');
 Route::post('/signin', 'Frontend\SigninControllers@login')->name('signin');
 
@@ -21,19 +11,7 @@ Route::post('/signin', 'Frontend\SigninControllers@login')->name('signin');
 Route::get('/signup', 'Frontend\SigninControllers@signup')->name('signup');
 Route::post('/signup/create', 'Frontend\SigninControllers@create')->name('signup.create');
 
-
-// Login Backend
-Route::get('/admin', 'Backend\SigninControllers@index')->name('admin');
-Route::post('/admin/login', 'Backend\SigninControllers@login')->name('admin.login');
-
-// Register Backend
-Route::get('/admin/register', 'Backend\SigninControllers@register')->name('admin.register');
-Route::post('/register/create', 'Backend\SigninControllers@create')->name('register.create');
-
-
-Auth::routes();
-
-// Route Frontend-------------------------
+// Route Pages Frontend
 Route::group(['middleware' => ['auth']], function () {
     Route::get('/home', 'Frontend\HomeController@index')->name('home');
 
@@ -49,6 +27,15 @@ Route::group(['middleware' => ['auth']], function () {
 
 
 // Route Backend----------------------------
+// Login Backend
+Route::get('/admin', 'Backend\SigninControllers@index')->name('admin');
+Route::post('/admin/login', 'Backend\SigninControllers@login')->name('admin.login');
+
+// Register Backend
+Route::get('/admin/register', 'Backend\SigninControllers@register')->name('admin.register');
+Route::post('/register/create', 'Backend\SigninControllers@create')->name('register.create');
+
+// Route Pages Backend
 Route::group(['middleware' => ['admin']], function () {
     Route::get('/dashboard', 'Backend\DashboardController@index')->name('dashboard');
 
